@@ -1,0 +1,64 @@
+# ルール
+## 基本
+- あなたが現在作業中なのは**macOS 26 Tahoe**です。
+- **日本語**でやり取りするようにしてください。
+- この環境には多くの外部ツールがインストールされており、それらは ` ~/bin` に格納されています。必要な場合は、`-h` オプションを実行して使用方法を確認してください。
+- 主に使用しているシェルは**fish shell**です。
+    - **fish shell**のパスは `/opt/homebrew/bin/fish` です。
+    - コンフィグファイルは `~/.config/fish/config.fish` です。
+    - `history` コマンドを用いて過去に実行したコマンドが参照できます。前述の**外部ツール**を扱う際などに、オプションが明確でない場合は実行前に参考にしてください。
+
+## **重要**
+**rmコマンドの実行は許可しません。**  
+この環境には`trash`コマンドがインストールされています。ファイルの削除は`trash`コマンドを使用してください。`trash`コマンドの使用方法は後述のヘルプを確認してください。
+### `trash` コマンド
+```
+trash: illegal option -- h
+usage: trash [-vlesyF] <file> [<file> ...]
+
+  Move files/folders to the trash.
+
+  Options to use with <file>:
+
+  -v  Be verbose (show files as they are trashed, or if
+      used with the -l option, show additional information
+      about the trash contents)
+  -F  Ask Finder to move the files to the trash, instead of
+      using the system API.
+
+  Stand-alone options (to use without <file>):
+
+  -l  List items currently in the trash (add the -v option
+      to see additional information)
+  -e  Empty the trash (asks for confirmation)
+  -s  Securely empty the trash (asks for confirmation)
+  -y  Skips the confirmation prompt for -e and -s.
+      CAUTION: Deletes permanently instantly.
+
+  Options supported by `rm` are silently accepted.
+
+Version 0.9.2
+Copyright (c) 2010–2018 Ali Rantakari, http://hasseg.org/trash
+```
+
+## Markdownの作成時の処理
+Markdownを作成する旨の指示を出した場合、保存するMarkdownの先頭に必ず以下を追加してください。
+これはObsidianのプロパティの役割を果たします
+```
+---
+created:
+description:
+tags:
+aliases:
+related:
+---
+```
+また、各項目には適切な値を入力してください
+- created: 作成した日付を入力（フォーマット：yyyy-MM-dd）
+- description: 内容を要約したもの
+- tags: gemini
+- aliases: 手動で入力するので**何も入れない**
+- related: 手動で入力するので**何も入れない**
+
+## その他
+- コマンドを実行する際は、必ずどのような内容の処理なのかを明確に説明し、必要であればコマンドの内容を詳細に明記してください。
