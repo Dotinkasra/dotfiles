@@ -12,15 +12,19 @@
 #
 # ===== Path =====
 export PATH="/usr/bin:$PATH"
+
+{{ if eq .chezmoi.os "darwin"  }}
 export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 export PATH="$HOME/bin:$HOME/bin/shellscript:$HOME/.local/bin:$PATH"
 export PATH="/opt/homebrew/opt/mysql-client/bin:/opt/homebrew/mysql-client/bin:$PATH"
 export PATH="$HOME/bin/bypass-403:$PATH"
-
 # tools
 export PATH="$HOME/bin/realesrgan-ncnn-vulkan:$HOME/bin/realcugan-ncnn-vulkan:$HOME/bin/dain-ncnn-vulkan:$PATH"
 export PATH="$HOME/.local/share/yaskkserv2:$PATH"
 export PATH="$HOME/bin/ffmpeg/bin:$PATH"
+{{ else if eq .chezmoi.os "linux" }}
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+{{ end }}
 
 autoload -Uz compinit
 compinit
@@ -63,9 +67,11 @@ eval "$(uv generate-shell-completion zsh)"
 eval "$(uvx --generate-shell-completion zsh)"
 
 # ===== Env =====
+{{ if eq .chezmoi.os "darwin" }}
 export icloud="$HOME/Library/Mobile Documents/com~apple~CloudDocs/"
-export SSLKEYLOGFILE="$HOME/.ssl-key.log"
 export CHROME_EXECUTABLE="/Applications/Brave Browser.app/Contents/MacOS/Brave Browser"
+{{ end }}
+export SSLKEYLOGFILE="$HOME/.ssl-key.log"
 export GEMINI_SANDBOX="sandbox-exec"
 export ABBR_QUIET=1
 
@@ -82,13 +88,17 @@ eval "$(sheldon source)"
 eval "$(starship init zsh)"
 #
 # ===== Aliases (abbr in fish) =====
+{{ if eq .chezmoi.os "darwin" }}
 abbr -S real='realesrgan-ncnn-vulkan -m $HOME/bin/realesrgan-ncnn-vulkan/models -n realesrgan-x4plus-anime'
 abbr -S vera='"/Applications/VeraCrypt.app/Contents/MacOS/VeraCrypt --text"'
+{{ end }}
 alias ls='ls -aGF'
 alias mv='mv -iv'
 
+{{ if eq .chezmoi.os "darwin" }}
 # Amazon Q post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
+{{ end }}
 
 # ===== bindkye =====
 bindkey '^r' fzf-select-history
