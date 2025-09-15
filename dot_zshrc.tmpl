@@ -1,13 +1,11 @@
 {{ if eq .chezmoi.os "darwin"  }}
 # Amazon Q pre block. Keep at the top of this file.
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
-{{ else }}
+{{ else eq .chezmoi.os "linux" }}
 # Amazon Q pre block. Keep at the top of this file.
 [[ -f "${HOME}/.local/share/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/.local/share/amazon-q/shell/zshrc.pre.zsh"
 {{ end }}
 
-## Fig pre block. Keep at the top of this file.
-[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && . "$HOME/.fig/shell/zshrc.pre.zsh"
 
 # ===== Path =====
 export PATH="/usr/bin:$PATH"
@@ -28,6 +26,7 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 autoload -Uz compinit
 compinit
 
+
 # ===== asdf =====
 # source /opt/homebrew/opt/asdf/libexec/asdf.sh
 if [ -z "$ASDF_DATA_DIR" ]; then
@@ -41,29 +40,36 @@ case ":$PATH:" in
 esac
 unset _asdf_shims
 
+
 # ===== Java / Gradle =====
 export JAVA_HOME="$HOME/.asdf/plugins/java/set-java-home.fish"
 export GRADLE_HOME="$HOME/bin/gradle"
 export PATH="$GRADLE_HOME/bin:$PATH"
 
+
 # ===== Node =====
 export PATH="/usr/local/opt/node/bin:$PATH"
+
 
 # ===== Nim =====
 export PATH="$HOME/.nimble/bin:$PATH"
 
+
 # ===== Rust =====
 export PATH="$HOME/.cargo/bin:$HOME/.cargo/env:$PATH"
 export RUSTC_WRAPPER="$HOME/.cargo/bin/sccache"
+
 
 # ===== Go =====
 export GOROOT="$(go env GOROOT)"
 export GOPATH="$(go env GOPATH)"
 export PATH="$GOPATH/bin:$PATH"
 
+
 # ===== Python =====
 eval "$(uv generate-shell-completion zsh)"
 eval "$(uvx --generate-shell-completion zsh)"
+
 
 # ===== Env =====
 {{ if eq .chezmoi.os "darwin" }}
@@ -74,6 +80,7 @@ export SSLKEYLOGFILE="$HOME/.ssl-key.log"
 export GEMINI_SANDBOX="sandbox-exec"
 export ABBR_QUIET=1
 
+
 # ===== Functions =====
 function fzf-select-history() {
     BUFFER=$(history -n -r 1 | fzf --query "$LBUFFER" --reverse)
@@ -82,10 +89,14 @@ function fzf-select-history() {
 }
 zle -N fzf-select-history
 
+{{ if eq .chezmoi.os "darwin" }}
 source ~/.orbstack/shell/init2.fish 2>/dev/null || :
+{{ end }}
+
 eval "$(sheldon source)"
 eval "$(starship init zsh)"
-#
+
+
 # ===== Aliases (abbr in fish) =====
 {{ if eq .chezmoi.os "darwin" }}
 abbr -S real='realesrgan-ncnn-vulkan -m $HOME/bin/realesrgan-ncnn-vulkan/models -n realesrgan-x4plus-anime'
@@ -106,7 +117,4 @@ bindkey '^[[1;2C' forward-word   # alt-right
 # Amazon Q post block. Keep at the bottom of this file.
 [[ -f "${HOME}/.local/share/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/.local/share/amazon-q/shell/zshrc.post.zsh"
 {{ end }}
-
-# Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"
 
