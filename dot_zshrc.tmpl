@@ -1,0 +1,108 @@
+{{ if eq .chezmoi.os "darwin"  }}
+# Amazon Q pre block. Keep at the top of this file.
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
+{{ else if eq .chezmoi.os "linux" }}
+# Amazon Q pre block. Keep at the top of this file.
+[[ -f "${HOME}/.local/share/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/.local/share/amazon-q/shell/zshrc.pre.zsh"
+{{ end }}
+
+## Fig pre block. Keep at the top of this file.
+#[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && . "$HOME/.fig/shell/zshrc.pre.zsh"
+
+# Fig post block. Keep at the bottom of this file.
+#[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"
+
+# ===== Path =====
+export PATH="/usr/bin:$PATH"
+
+{{ if eq .chezmoi.os "darwin"  }}
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+export PATH="$HOME/bin:$HOME/bin/shellscript:$HOME/.local/bin:$PATH"
+export PATH="/opt/homebrew/opt/mysql-client/bin:/opt/homebrew/mysql-client/bin:$PATH"
+export PATH="$HOME/bin/bypass-403:$PATH"
+# tools
+export PATH="$HOME/bin/realesrgan-ncnn-vulkan:$HOME/bin/realcugan-ncnn-vulkan:$HOME/bin/dain-ncnn-vulkan:$PATH"
+export PATH="$HOME/.local/share/yaskkserv2:$PATH"
+export PATH="$HOME/bin/ffmpeg/bin:$PATH"
+{{ else if eq .chezmoi.os "linux" }}
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+{{ end }}
+
+autoload -Uz compinit
+compinit
+
+# ===== asdf =====
+# source /opt/homebrew/opt/asdf/libexec/asdf.sh
+if [ -z "$ASDF_DATA_DIR" ]; then
+  _asdf_shims="$HOME/.asdf/shims"
+else
+  _asdf_shims="$ASDF_DATA_DIR/shims"
+fi
+case ":$PATH:" in
+  *":$_asdf_shims:"*) ;;
+  *) export PATH="$_asdf_shims:$PATH" ;;
+esac
+unset _asdf_shims
+
+# ===== Java / Gradle =====
+export JAVA_HOME="$HOME/.asdf/plugins/java/set-java-home.fish"
+export GRADLE_HOME="$HOME/bin/gradle"
+export PATH="$GRADLE_HOME/bin:$PATH"
+
+# ===== Node =====
+export PATH="/usr/local/opt/node/bin:$PATH"
+
+# ===== Nim =====
+export PATH="$HOME/.nimble/bin:$PATH"
+
+# ===== Rust =====
+export PATH="$HOME/.cargo/bin:$HOME/.cargo/env:$PATH"
+export RUSTC_WRAPPER="$HOME/.cargo/bin/sccache"
+
+# ===== Go =====
+export GOROOT="$(go env GOROOT)"
+export GOPATH="$(go env GOPATH)"
+export PATH="$GOPATH/bin:$PATH"
+
+# ===== Python =====
+eval "$(uv generate-shell-completion zsh)"
+eval "$(uvx --generate-shell-completion zsh)"
+
+# ===== Env =====
+{{ if eq .chezmoi.os "darwin" }}
+export icloud="$HOME/Library/Mobile Documents/com~apple~CloudDocs/"
+export CHROME_EXECUTABLE="/Applications/Brave Browser.app/Contents/MacOS/Brave Browser"
+{{ end }}
+export SSLKEYLOGFILE="$HOME/.ssl-key.log"
+export GEMINI_SANDBOX="sandbox-exec"
+export ABBR_QUIET=1
+
+# ===== Functions =====
+function fzf-select-history() {
+    BUFFER=$(history -n -r 1 | fzf --query "$LBUFFER" --reverse)
+    CURSOR=$#BUFFER
+    zle reset-prompt
+}
+zle -N fzf-select-history
+
+source ~/.orbstack/shell/init2.fish 2>/dev/null || :
+eval "$(sheldon source)"
+eval "$(starship init zsh)"
+#
+# ===== Aliases (abbr in fish) =====
+{{ if eq .chezmoi.os "darwin" }}
+abbr -S real='realesrgan-ncnn-vulkan -m $HOME/bin/realesrgan-ncnn-vulkan/models -n realesrgan-x4plus-anime'
+abbr -S vera='"/Applications/VeraCrypt.app/Contents/MacOS/VeraCrypt --text"'
+{{ end }}
+alias ls='ls -aGF'
+alias mv='mv -iv'
+
+{{ if eq .chezmoi.os "darwin" }}
+# Amazon Q post block. Keep at the bottom of this file.
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
+{{ end }}
+
+# ===== bindkye =====
+bindkey '^r' fzf-select-history
+bindkey '^[[1;2D' backward-word  # alt-left
+bindkey '^[[1;2C' forward-word   # alt-right
