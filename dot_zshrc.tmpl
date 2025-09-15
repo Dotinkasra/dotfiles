@@ -6,6 +6,8 @@
 [[ -f "${HOME}/.local/share/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/.local/share/amazon-q/shell/zshrc.pre.zsh"
 {{ end }}
 
+# ==== zsh settings ====
+HISTFILE=$HOME/.zsh_history
 
 # ===== Path =====
 export PATH="/usr/bin:$PATH"
