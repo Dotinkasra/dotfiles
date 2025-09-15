@@ -89,9 +89,11 @@ function fzf-select-history() {
 }
 zle -N fzf-select-history
 
+# ===== Source ====
 {{ if eq .chezmoi.os "darwin" }}
 source ~/.orbstack/shell/init2.fish 2>/dev/null || :
 {{ end }}
+source ~/.local/share/sheldon/repos/github.com/zdharma-continuum/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 
 eval "$(sheldon source)"
 eval "$(starship init zsh)"

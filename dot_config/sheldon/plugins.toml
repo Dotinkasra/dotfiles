@@ -30,3 +30,7 @@ apply = ["source"]
 [plugins.zsh-abbr]
 github = 'olets/zsh-abbr'
 apply = ["source"]
+
+[plugins.fast-syntax-highlighting]
+github = 'zdharma-continuum/fast-syntax-highlighting'
+apply = ["defer"]
