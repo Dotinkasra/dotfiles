@@ -7,10 +7,7 @@
 {{ end }}
 
 ## Fig pre block. Keep at the top of this file.
-#[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && . "$HOME/.fig/shell/zshrc.pre.zsh"
-
-# Fig post block. Keep at the bottom of this file.
-#[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"
+[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && . "$HOME/.fig/shell/zshrc.pre.zsh"
 
 # ===== Path =====
 export PATH="/usr/bin:$PATH"
@@ -97,12 +94,19 @@ abbr -S vera='"/Applications/VeraCrypt.app/Contents/MacOS/VeraCrypt --text"'
 alias ls='ls -aGF'
 alias mv='mv -iv'
 
-{{ if eq .chezmoi.os "darwin" }}
-# Amazon Q post block. Keep at the bottom of this file.
-[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
-{{ end }}
-
 # ===== bindkye =====
 bindkey '^r' fzf-select-history
 bindkey '^[[1;2D' backward-word  # alt-left
 bindkey '^[[1;2C' forward-word   # alt-right
+
+{{ if eq .chezmoi.os "darwin" }}
+# Amazon Q post block. Keep at the bottom of this file.
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
+{{ else if eq .chezmoi.os "linux" }}
+# Amazon Q post block. Keep at the bottom of this file.
+[[ -f "${HOME}/.local/share/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/.local/share/amazon-q/shell/zshrc.post.zsh"
+{{ end }}
+
+# Fig post block. Keep at the bottom of this file.
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"
+
