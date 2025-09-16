@@ -10,6 +10,10 @@ call jetpack#add('tomasr/molokai')
 call jetpack#add('itchyny/lightline.vim')
 call jetpack#add('joshdick/onedark.vim')
 call jetpack#add('Yggdroot/indentLine')
+call jetpack#add('christoomey/vim-system-copy')
+call jetpack#add('tpope/vim-surround')
+call jetpack#add('tpope/vim-commentary')
+call jetpack#add('dominikduda/vim_current_word')
 
 call jetpack#end()
 
@@ -44,6 +48,9 @@ set laststatus=2 " ステータスラインを常に表示
 set showmode " 現在のモードを表示
 set showcmd " 打ったコマンドをステータスラインの下に表示
 set ruler " ステータスラインの右側にカーソルの現在位置を表示する
+
+let g:vim_current_word#highlight_current_word = 0
+let g:vim_current_word#highlight_delay = 500
 
 "----------------------------------------------------------
 " インデントの可視化
