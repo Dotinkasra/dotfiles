@@ -1,10 +1,10 @@
-{{ if eq .chezmoi.os "darwin"  }}
+{{- if eq .chezmoi.os "darwin"  }}
 # Amazon Q pre block. Keep at the top of this file.
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
-{{ else if eq .chezmoi.os "linux" }}
+{{- else if eq .chezmoi.os "linux" }}
 # Amazon Q pre block. Keep at the top of this file.
 [[ -f "${HOME}/.local/share/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/.local/share/amazon-q/shell/zshrc.pre.zsh"
-{{ end }}
+{{- end }}
 
 # ==== zsh settings ====
 HISTFILE=$HOME/.zsh_history
@@ -21,9 +21,9 @@ export PATH="$HOME/bin/bypass-403:$PATH"
 export PATH="$HOME/bin/realesrgan-ncnn-vulkan:$HOME/bin/realcugan-ncnn-vulkan:$HOME/bin/dain-ncnn-vulkan:$PATH"
 export PATH="$HOME/.local/share/yaskkserv2:$PATH"
 export PATH="$HOME/bin/ffmpeg/bin:$PATH"
-{{ else if eq .chezmoi.os "linux" }}
+{{- else if eq .chezmoi.os "linux" }}
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-{{ end }}
+{{- end }}
 
 autoload -Uz compinit
 compinit
@@ -74,10 +74,10 @@ eval "$(uvx --generate-shell-completion zsh)"
 
 
 # ===== Env =====
-{{ if eq .chezmoi.os "darwin" }}
+{{- if eq .chezmoi.os "darwin" }}
 export icloud="$HOME/Library/Mobile Documents/com~apple~CloudDocs/"
 export CHROME_EXECUTABLE="/Applications/Brave Browser.app/Contents/MacOS/Brave Browser"
-{{ end }}
+{{- end }}
 export SSLKEYLOGFILE="$HOME/.ssl-key.log"
 export GEMINI_SANDBOX="sandbox-exec"
 export ABBR_QUIET=1
@@ -92,9 +92,9 @@ function fzf-select-history() {
 zle -N fzf-select-history
 
 # ===== Source ====
-{{ if eq .chezmoi.os "darwin" }}
+{{- if eq .chezmoi.os "darwin" }}
 source ~/.orbstack/shell/init2.fish 2>/dev/null || :
-{{ end }}
+{{- end }}
 source ~/.local/share/sheldon/repos/github.com/zdharma-continuum/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 
 eval "$(sheldon source)"
@@ -102,10 +102,10 @@ eval "$(starship init zsh)"
 
 
 # ===== Aliases (abbr in fish) =====
-{{ if eq .chezmoi.os "darwin" }}
+{{- if eq .chezmoi.os "darwin" }}
 abbr -S real='realesrgan-ncnn-vulkan -m $HOME/bin/realesrgan-ncnn-vulkan/models -n realesrgan-x4plus-anime'
 abbr -S vera='"/Applications/VeraCrypt.app/Contents/MacOS/VeraCrypt --text"'
-{{ end }}
+{{- end }}
 
 # chezmoi 
 abbr -S che='chezmoi edit'
@@ -122,11 +122,11 @@ bindkey '^r' fzf-select-history
 bindkey '^[[1;2D' backward-word  # alt-left
 bindkey '^[[1;2C' forward-word   # alt-right
 
-{{ if eq .chezmoi.os "darwin" }}
+{{- if eq .chezmoi.os "darwin" }}
 # Amazon Q post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
-{{ else if eq .chezmoi.os "linux" }}
+{{- else if eq .chezmoi.os "linux" }}
 # Amazon Q post block. Keep at the bottom of this file.
 [[ -f "${HOME}/.local/share/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/.local/share/amazon-q/shell/zshrc.post.zsh"
-{{ end }}
+{{- end }}
 

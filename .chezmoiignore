@@ -3,3 +3,6 @@ Library/*
 .config/iterm2
 {{- end }}
 
+{{- if ne .chezmoi.hostname "TWemu" }}
+.config/starship.toml
+{{- end }}
