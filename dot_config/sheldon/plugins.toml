@@ -34,3 +34,4 @@ apply = ["source"]
 [plugins.fast-syntax-highlighting]
 github = 'zdharma-continuum/fast-syntax-highlighting'
 apply = ["defer"]
+
