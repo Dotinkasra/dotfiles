@@ -8,6 +8,9 @@
 
 # ==== zsh settings ====
 HISTFILE=$HOME/.zsh_history
+setopt incappendhistory
+autoload -Uz compinit && compinit
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 # ===== Path =====
 export PATH="/usr/bin:$PATH"
@@ -77,9 +80,11 @@ eval "$(uvx --generate-shell-completion zsh)"
 {{- if eq .chezmoi.os "darwin" }}
 export icloud="$HOME/Library/Mobile Documents/com~apple~CloudDocs/"
 export CHROME_EXECUTABLE="/Applications/Brave Browser.app/Contents/MacOS/Brave Browser"
+#export GEMINI_SANDBOX="sandbox-exec"
+{{- else if eq .chezmoi.os "linux" }}
+#export GEMINI_SANDBOX="docker"
 {{- end }}
 export SSLKEYLOGFILE="$HOME/.ssl-key.log"
-export GEMINI_SANDBOX="sandbox-exec"
 export ABBR_QUIET=1
 
 
