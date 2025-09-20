@@ -85,9 +85,9 @@ eval "$(uvx --generate-shell-completion zsh)"
 {{- if eq .chezmoi.os "darwin" }}
 export icloud="$HOME/Library/Mobile Documents/com~apple~CloudDocs/"
 export CHROME_EXECUTABLE="/Applications/Brave Browser.app/Contents/MacOS/Brave Browser"
-#export GEMINI_SANDBOX="sandbox-exec"
+export GEMINI_SANDBOX="sandbox-exec"
 {{- else if eq .chezmoi.os "linux" }}
-#export GEMINI_SANDBOX="docker"
+export GEMINI_SANDBOX="docker"
 {{- end }}
 export SSLKEYLOGFILE="$HOME/.ssl-key.log"
 export ABBR_QUIET=1
@@ -124,7 +124,7 @@ abbr -S cha='chezmoi apply'
 abbr -S chg='chezmoi git'
 
 # alias
-alias ls='ls -aGF'
+alias ls='ls -hGF'
 alias mv='mv -iv'
 
 # ===== bindkye =====
