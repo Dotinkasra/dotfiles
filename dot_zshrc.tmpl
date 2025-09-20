@@ -113,6 +113,8 @@ eval "$(starship init zsh)"
 
 
 # ===== Aliases (abbr in fish) =====
+ABBR_SET_EXPANSION_CURSOR=1
+abbr -S noh='nohup % > /dev/null 2>&1 &'
 {{- if eq .chezmoi.os "darwin" }}
 abbr -S real='realesrgan-ncnn-vulkan -m $HOME/bin/realesrgan-ncnn-vulkan/models -n realesrgan-x4plus-anime'
 abbr -S vera='"/Applications/VeraCrypt.app/Contents/MacOS/VeraCrypt --text"'
