@@ -40,17 +40,19 @@ compinit
 
 # ===== asdf =====
 # source /opt/homebrew/opt/asdf/libexec/asdf.sh
-if [ -z "$ASDF_DATA_DIR" ]; then
-  _asdf_shims="$HOME/.asdf/shims"
-else
-  _asdf_shims="$ASDF_DATA_DIR/shims"
-fi
-case ":$PATH:" in
-  *":$_asdf_shims:"*) ;;
-  *) export PATH="$_asdf_shims:$PATH" ;;
-esac
-unset _asdf_shims
+# if [ -z "$ASDF_DATA_DIR" ]; then
+#  _asdf_shims="$HOME/.asdf/shims"
+# else
+#  _asdf_shims="$ASDF_DATA_DIR/shims"
+# fi
+# case ":$PATH:" in
+#  *":$_asdf_shims:"*) ;;
+#  *) export PATH="$_asdf_shims:$PATH" ;;
+# esac
+# unset _asdf_shims
 
+# ===== mise =====
+eval "$(mise activate zsh)"
 
 # ===== Java / Gradle =====
 export JAVA_HOME="$HOME/.asdf/plugins/java/set-java-home.fish"
