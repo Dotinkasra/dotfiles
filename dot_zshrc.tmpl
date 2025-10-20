@@ -1,6 +1,10 @@
 {{- if eq .chezmoi.os "darwin"  }}
 # Kiro CLI pre block. Keep at the top of this file.
 [[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh"
+=======
+# Amazon Q pre block. Keep at the top of this file.
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
+fpath=(~/.zsh/completion $fpath)
 {{- else if eq .chezmoi.os "linux" }}
 # Amazon Q pre block. Keep at the top of this file.
 [[ -f "${HOME}/.local/share/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/.local/share/amazon-q/shell/zshrc.pre.zsh"
@@ -17,6 +21,7 @@ setopt inc_append_history_time
 autoload -Uz compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion:*:default' menu select=1
+zle_highlight=('paste:none')
 
 # ===== Path =====
 export PATH="/usr/bin:$PATH"
