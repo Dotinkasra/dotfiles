@@ -136,7 +136,8 @@ alias mv='mv -iv'
 bindkey '^r' fzf-select-history
 bindkey '^[[1;2D' backward-word  # alt-left
 bindkey '^[[1;2C' forward-word   # alt-right
-bindkey '^J' self-insert
+#bindkey '^J' self-insert
+
 
 {{- if eq .chezmoi.os "darwin" }}
 # Kiro CLI post block. Keep at the bottom of this file.
